@@ -7,7 +7,7 @@
     }
     if(!isset($_SESSION['steps'])) $_SESSION['steps']   =   [];
 
-    /* Declear variables for all kind of erros  */
+    /* Declare variables for all kind of erros  */
     $targets_error          =   '';
     $choice1_error          =   '';
     $choice2_error          =   '';
@@ -20,7 +20,7 @@
     /* Check if form is submitted or not */
     if(isset($_POST) && !empty($_POST['submit'] )){
 
-        /* If first step is submitted means vactions targets */
+        /* If first step is submitted then proceed */
         if($_POST['submit'] == 'Schritt 1'){
             if (empty($_POST["choice1"]) && empty($_POST["choice2"]) && empty($_POST["choice3"])) {
                 $targets_error =   "Bitte mindestens eine Wahl angeben.";
@@ -34,7 +34,7 @@
                 }else
                     $_SESSION['form']['choice1']    =  ''; 
 
-                /* Check if choice 2 is filled or not, if filled then check for special characters */
+                /* Check if choice 2 is filled or not, if true then check for special characters */
                 if(!empty($_POST["choice2"])){
                     if (!preg_match("/^[a-zA-Z ]*$/",$_POST["choice2"]))
                         $choice2_error = "Keine Sonderzeichen gestattet."; 
@@ -52,17 +52,17 @@
                 }else
                     $_SESSION['form']['choice3']    =  ''; 
 
-                /* Make check for next step if targets step is successfully filled without errors after validation */
+                /* Perform check for next step if targets step is successfully filled without errors after validation */
                 if(empty($targets_error) && empty($choice1_error) && empty($choice2_error) && empty($choice3_error)){
                     $_SESSION['steps'][] = $_POST['submit'];
                 }
             }  
         }
 
-         /* If second step is submitted means contacts detail */
+         /* If second step is submitted proceed  */
         if($_POST['submit'] == 'Schritt 2'){
             if (empty($_POST["first_last_name"]) && empty($_POST["zip"]) && empty($_POST["phone"])) {
-                $contact_error  =   "Bitte die Felder entsprechend ausfüllen.";
+                $contact_error  =   "Bitte die Felder entsprechend ausfÃ¼llen.";
             }else {
                 /* Check if first & last name is filled or not, if filled then check for special characters */
                 if(!empty($_POST["first_last_name"])){
@@ -205,7 +205,7 @@ if(!empty($_SESSION['steps']) && in_array('Schritt 1',$_SESSION['steps']) && !in
     endif;
     /* If user has successfully filled last step(contact details) */
     if(!empty($_SESSION['steps']) && in_array('Schritt 2',$_SESSION['steps'])):
-        echo "<h1>�bersicht</h1>";
+        echo "<h1>Übersicht</h1>";
         if(isset($_SESSION['form']['choice1']) && !empty($_SESSION['form']['choice1'])) echo '<h4>1 Wahl: '.$_SESSION['form']['choice1']."<h4>";
         if(isset($_SESSION['form']['choice2']) && !empty($_SESSION['form']['choice2'])) echo '<h4>2 Wahl: '.$_SESSION['form']['choice2']."<h4>";
         if(isset($_SESSION['form']['choice3']) && !empty($_SESSION['form']['choice3'])) echo '<h4>3 Wahl: '.$_SESSION['form']['choice3']."<h4>";
